@@ -1,0 +1,21 @@
+Rendon Labador|APPROVED|READ|Employer 'Marco Secreto' accepted you for 'Roof Repair' (ID: JOB201). You can start work now.
+Maria Clara|APPROVED|READ|Employer 'Michael Santos' accepted you for 'Tutoring Service' (ID: JOB202). You can start work now.
+Rezdee Navarro|APPROVED|READ|Employer 'Salamat Doctora' accepted you for 'Grocery Delivery' (ID: JOB203). You can start work now.
+Kyle Almeda|APPROVED|READ|Employer 'Juan Luna' accepted you for 'Furniture Assembly' (ID: JOB204). You can start work now.
+Salamat Doctora|FINISHED|UNREAD|Payment released! 'Maria Clara' approved your work on 'Laundry Service'. Rating: ★★★
+Jerry Dimaculangan|FINISHED|UNREAD|Payment released! 'Rezdee Navarro' approved your work on 'Computer Repair'. Rating: ★★★★★
+Marco Secreto|FINISHED|READ|Payment released! 'Kyle Almeda' approved your work on 'Electrician Work'. Rating: ★★★★
+Elena Cruz|FINISHED|READ|Payment released! 'Michael Santos' approved your work on 'House Cleaning'. Rating: ★★★★★
+Salamat Doctora|FINISHED|UNREAD|Review Required: 'Rezdee Navarro' completed 'Grocery Delivery' (ID: JOB203).
+Juan Luna|FINISHED|UNREAD|Review Required: 'Kyle Almeda' completed 'Furniture Assembly' (ID: JOB204).
+Kyle Almeda|APPLIED|UNREAD|Rezdee Navarro;JOB301
+Jerry Dimaculangan|APPLIED|UNREAD|Marco Secreto;JOB302
+Jerry Dimaculangan|APPLIED|UNREAD|Elena Cruz;JOB302
+Elena Cruz|APPLIED|UNREAD|Kyle Almeda;JOB303
+Rendon Labador|APPLIED|UNREAD|Michael Santos;JOB304
+Rendon Labador|APPLIED|UNREAD|Jerry Dimaculangan;JOB304
+Maria Clara|APPLIED|UNREAD|Salamat Doctora;JOB305
+Rezdee Navarro|APPLIED|UNREAD|Juan Luna;JOB306
+Rezdee Navarro|APPLIED|UNREAD|Marco Secreto;JOB306
+Marco Secreto|DECLINED|UNREAD|Sorry! The job 'Furniture Assembly' (ID: JOB204) has already been filled by another applicant.
+Michael Santos|DECLINED|READ|Your application for 'Roof Repair' (ID: JOB201) was declined.
