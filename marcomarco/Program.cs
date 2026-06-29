@@ -468,7 +468,7 @@
 
                 if (choice == 0) return;
 
-                // ── [1] POST A JOB ────────────────────────────────────────────────────────
+             
                 if (choice == 1)
                 {
                     Console.Clear();
@@ -572,19 +572,19 @@
                     Pause();
                 }
 
-                // ── [2] REVIEW APPLICANTS ─────────────────────────────────────────────────
+                
                 else if (choice == 2)
                 {
                     while (true)
                     {
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine("=========================================================================================");
-                        Console.WriteLine("                     MY POSTED JOBS");
-                        Console.WriteLine("=========================================================================================");
+                        Console.WriteLine("=============================================================================================================================");
+                        Console.WriteLine("                                                 MY POSTED JOBS");
+                        Console.WriteLine("=============================================================================================================================");
                         Console.WriteLine("{0,-8} | {1,-16} | {2,-12} | {3,-12} | {4,-20} | {5,-10} | {6,-10}",
     "Job ID", "Title", "Location", "Budget", "Worker", "Status", "Applicants");
-                        Console.WriteLine("=========================================================================================");
+                        Console.WriteLine("=============================================================================================================================");
                         Console.ResetColor();
 
                         int count = 0;
@@ -622,7 +622,7 @@
                             break;
                         }
 
-                        Console.WriteLine("=========================================================================================");
+                        Console.WriteLine("=============================================================================================================================");
                         Console.Write("\nEnter Job ID to view applicants (or / to return): ");
                         string selectedJobId = Console.ReadLine().Trim().ToUpper();
 
@@ -795,13 +795,13 @@
                     }
                 }
 
-                // ── [3] VERIFY COMPLETIONS ────────────────────────────────────────────────
+              
                 else if (choice == 3)
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("===============================================================================");
-                    Console.WriteLine("  VERIFY COMPLETIONS");
+                    Console.WriteLine("                        VERIFY COMPLETIONS");
                     Console.WriteLine("===============================================================================");
                     Console.WriteLine("{0,-8} | {1,-20} | {2,-20} | {3,-12}",
     "Job ID", "Title", "Worker", "Budget");
@@ -1005,12 +1005,12 @@
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("======================================================================================================================");
+                Console.WriteLine("===========================================================================================================================================");
                 Console.WriteLine("                                                     AVAILABLE JOBS");
-                Console.WriteLine("======================================================================================================================");
+                Console.WriteLine("===========================================================================================================================================");
                 Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}",
      "Job ID", "Title", "Location", "Budget", "Employer", "Emp. Location", "Contact No.", "Date Posted");
-                Console.WriteLine("======================================================================================================================");
+                Console.WriteLine("===========================================================================================================================================");
                 Console.ResetColor();
 
                 int count = 0;
@@ -1324,8 +1324,7 @@
                     {
                         string[] parts = n.Split('|');
 
-                        // Keep other users' notifications AND keep APPLIED
-                        // notifications addressed to you (those are job applications, not inbox messages)
+                        
                         if (!parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) ||
                             parts[1] == "APPLIED")
                         {
@@ -1404,12 +1403,12 @@
         {
             int displayCount = 0;
             Console.Clear();
-            Console.WriteLine("====================================================================================");
-            Console.WriteLine("                        MY HISTORY LEDGER");
-            Console.WriteLine("====================================================================================");
+            Console.WriteLine("=============================================================================================================================");
+            Console.WriteLine("                                             MY HISTORY LEDGER");
+            Console.WriteLine("=============================================================================================================================");
             Console.WriteLine("{0,-8} | {1,-16} | {2,-20} | {3,-20} | {4,-10} | {5,-8} | {6,-10}",
                 "Job ID", "Title", "Employer", "Worker", "Paid", "Rating", "Your Role");
-            Console.WriteLine("====================================================================================");
+            Console.WriteLine("=============================================================================================================================");
 
             foreach (string log in TransactionHistory)
             {
