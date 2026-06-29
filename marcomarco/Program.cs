@@ -7,7 +7,7 @@
     using System.Threading;
     internal class Program
     {
-        // marco
+        // marcowowowow
         //did it work?
         // USERNAMES AND PASSWORDS ONLY
         static List<string> UserNames = new List<string>();
@@ -1468,6 +1468,10 @@
         }
         static void LoadData()
         {
+            if (!File.Exists("users_universal.txt")) File.WriteAllText("users_universal.txt", "");
+            if (!File.Exists("jobs_universal.txt")) File.WriteAllText("jobs_universal.txt", "");
+            if (!File.Exists("notifications_universal.txt")) File.WriteAllText("notifications_universal.txt", "");
+            if (!File.Exists("history_universal.txt")) File.WriteAllText("history_universal.txt", "");
             if (File.Exists("users_universal.txt"))
             {
                 UserNames.Clear();
