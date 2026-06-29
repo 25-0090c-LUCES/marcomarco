@@ -1,0 +1,20 @@
+JOB101|Plumbing Repair|Las Pinas|800|Marco Secreto|Kyle Almeda|COMPLETED|★★★★★|06/15/2026 09:00 AM
+JOB102|Electrician Work|Las Pinas|1500|Kyle Almeda|Marco Secreto|COMPLETED|★★★★|06/16/2026 10:30 AM
+JOB103|House Cleaning|Paranaque|600|Michael Santos|Elena Cruz|COMPLETED|★★★★★|06/17/2026 08:00 AM
+JOB104|Garden Landscaping|Maynila|1200|Jerry Dimaculangan|Rendon Labador|COMPLETED|★★★|06/18/2026 01:00 PM
+JOB105|Carpentry Work|Bacoor|2000|Salamat Doctora|Juan Luna|COMPLETED|★★★★|06/19/2026 11:00 AM
+JOB106|Painting Service|Cebu|1800|Juan Luna|Maria Clara|COMPLETED|★★★★★|06/20/2026 09:30 AM
+JOB107|Aircon Cleaning|Davao|700|Elena Cruz|Michael Santos|COMPLETED|★★★★|06/21/2026 02:00 PM
+JOB108|Delivery Rider|Pasay|500|Rendon Labador|Rezdee Navarro|COMPLETED|★★★★★|06/22/2026 07:00 AM
+JOB109|Laundry Service|Calamba|400|Maria Clara|Salamat Doctora|COMPLETED|★★★|06/23/2026 03:00 PM
+JOB110|Computer Repair|Las Pinas|1000|Rezdee Navarro|Jerry Dimaculangan|COMPLETED|★★★★★|06/24/2026 10:00 AM
+JOB201|Roof Repair|Las Pinas|2500|Marco Secreto|Rendon Labador|ONGOING|N/A|06/25/2026 08:00 AM
+JOB202|Tutoring Service|Paranaque|800|Michael Santos|Maria Clara|ONGOING|N/A|06/25/2026 09:00 AM
+JOB203|Grocery Delivery|Bacoor|350|Salamat Doctora|Rezdee Navarro|PENDING_VERIFICATION|N/A|06/25/2026 10:00 AM
+JOB204|Furniture Assembly|Cebu|900|Juan Luna|Kyle Almeda|PENDING_VERIFICATION|N/A|06/26/2026 08:30 AM
+JOB301|Dog Walking|Las Pinas|300|Kyle Almeda|None|AVAILABLE|N/A|06/27/2026 09:00 AM
+JOB302|Photo Editing|Maynila|1500|Jerry Dimaculangan|None|AVAILABLE|N/A|06/27/2026 10:00 AM
+JOB303|Welding Job|Davao|1700|Elena Cruz|None|AVAILABLE|N/A|06/27/2026 11:00 AM
+JOB304|Massage Therapy|Pasay|1200|Rendon Labador|None|AVAILABLE|N/A|06/28/2026 08:00 AM
+JOB305|Babysitting|Calamba|500|Maria Clara|None|AVAILABLE|N/A|06/28/2026 09:00 AM
+JOB306|Catering Service|Las Pinas|3500|Rezdee Navarro|None|AVAILABLE|N/A|06/28/2026 10:00 AM
