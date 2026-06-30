@@ -1033,7 +1033,7 @@
                 Console.WriteLine("===========================================================================================================================================");
                 Console.WriteLine("                                                     AVAILABLE JOBS");
                 Console.WriteLine("===========================================================================================================================================");
-                Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}", "Job ID", "Title", "Location", "Budget", "Employer", "Emp. Location", "Contact No.", "Date Posted");
+                Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-12} | {6,-15} | {7,-13} | {8,-18}", "Job ID", "Title", "Location", "Budget", "Employer", "Emp. Rating", "Emp. Location", "Contact No.", "Date Posted");
                 Console.WriteLine("===========================================================================================================================================");
                 Console.ResetColor();
 
@@ -1061,12 +1061,13 @@
                             }
                         }
 
-                        Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}",
+                        Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-12} | {6,-15} | {7,-13} | {8,-18}",
                      JobIDs[i],
                      JobTitles[i],
                      JobLocations[i],
                      "PHP " + JobBudgets[i],
                      JobEmployers[i],
+                     GetEmployerAverageRating(JobEmployers[i]),
                      employerLocation,
                      employerContact,
                      JobDatePosted[i]);
@@ -1169,7 +1170,7 @@
                 }
             }
 
-            if (jobCount == 0) return "No performance reviews";
+            if (jobCount == 0) return "No rating";
             int average = (int)Math.Round((double)totalStars / jobCount);
             return new string('*', average);
         }
@@ -1191,7 +1192,7 @@
                 }
             }
 
-            if (jobCount == 0) return "No performance reviews";
+            if (jobCount == 0) return "No rating";
             int average = (int)Math.Round((double)totalStars / jobCount);
             return new string('*', average);
         }
