@@ -25,6 +25,7 @@
         static List<string> JobRatings = new List<string>();
         static List<string> JobLocations = new List<string>();
         static List<string> JobDatePosted = new List<string>();
+        static List<string> JobEmployerRatings = new List<string>();
 
         // Engine queues and stacks for simple text parsing
         static Queue<string> LiveNotifications = new Queue<string>();
@@ -33,12 +34,13 @@
         static void Main(string[] args)
         {
             LoadData();
-
             while (true)
             {
                 string currentUser = LoginPortal();
-                if (currentUser == "") continue;
-
+                if (currentUser == "") 
+                { 
+                    continue; 
+                }
                 RunUniversalDashboard(currentUser);
             }
         }
@@ -300,7 +302,10 @@
                             Console.Write("Enter Contact Number (Format: 09XXXXXXXXX): ");
                             c = Console.ReadLine().Trim();
 
-                            if (c == "/") { cancelled = true; break; }
+                            if (c == "/") 
+                            { 
+                                cancelled = true; break; 
+                            }
 
                             if (c.Length != 11 || !c.All(char.IsDigit))
                             {
@@ -382,7 +387,7 @@
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("===============================================================================");
-                Console.WriteLine("  DASHBOARD | USER: " + username.ToUpper() + " | RATING: " + GetUserAverageRating(username));
+                Console.WriteLine("  DASHBOARD | USER: " + username.ToUpper() + " | WORKER RATING: " + GetUserAverageRating(username) + " | EMPLOYER RATING: " + GetEmployerAverageRating(username));
                 Console.WriteLine("===============================================================================");
                 Console.ResetColor();
 
@@ -466,9 +471,11 @@
                     continue;
                 }
 
-                if (choice == 0) return;
+                if (choice == 0)
+                { 
+                    return; 
+                }
 
-             
                 if (choice == 1)
                 {
                     Console.Clear();
@@ -480,7 +487,10 @@
                     {
                         Console.Write("Job Title: ");
                         title = Console.ReadLine().Trim();
-                        if (title == "/") break;
+                        if (title == "/") 
+                        { 
+                            break; 
+                        }
                         if (string.IsNullOrWhiteSpace(title))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -494,14 +504,19 @@
                         }
                         break;
                     }
-                    if (title == "/") continue;
-
+                    if (title == "/") 
+                    { 
+                        continue; 
+                    }
                     string location = "";
                     while (true)
                     {
                         Console.Write("Job Location: ");
                         location = Console.ReadLine().Trim();
-                        if (location == "/") break;
+                        if (location == "/") 
+                        { 
+                            break; 
+                        }
                         if (string.IsNullOrWhiteSpace(location))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -516,14 +531,20 @@
                         }
                         break;
                     }
-                    if (location == "/") continue;
+                    if (location == "/") 
+                    { 
+                        continue; 
+                    }
 
                     string budget = "";
                     while (true)
                     {
                         Console.Write("Budget (PHP): ");
                         budget = Console.ReadLine().Trim();
-                        if (budget == "/") break;
+                        if (budget == "/") 
+                        { 
+                            break; 
+                        }
                         if (string.IsNullOrWhiteSpace(budget))
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -552,7 +573,10 @@
                         }
                         break;
                     }
-                    if (budget == "/") continue;
+                    if (budget == "/")
+                    { 
+                        continue; 
+                    }
 
                     string newID = "JOB" + new Random().Next(100, 999);
                     JobIDs.Add(newID);
@@ -564,6 +588,7 @@
                     JobStatuses.Add("AVAILABLE");
                     JobRatings.Add("N/A");
                     JobDatePosted.Add(DateTime.Now.ToString("MM/dd/yyyy hh:mm tt"));
+                    JobEmployerRatings.Add("N/A");
                     SaveData();
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -582,8 +607,7 @@
                         Console.WriteLine("=============================================================================================================================");
                         Console.WriteLine("                                                 MY POSTED JOBS");
                         Console.WriteLine("=============================================================================================================================");
-                        Console.WriteLine("{0,-8} | {1,-16} | {2,-12} | {3,-12} | {4,-20} | {5,-10} | {6,-10}",
-    "Job ID", "Title", "Location", "Budget", "Worker", "Status", "Applicants");
+                        Console.WriteLine("{0,-8} | {1,-16} | {2,-12} | {3,-12} | {4,-20} | {5,-10} | {6,-10}", "Job ID", "Title", "Location", "Budget", "Worker", "Status", "Applicants");
                         Console.WriteLine("=============================================================================================================================");
                         Console.ResetColor();
 
@@ -608,9 +632,7 @@
                                     }
                                 }
 
-                                Console.WriteLine("{0,-8} | {1,-16} | {2,-12} | {3,-12} | {4,-20} | {5,-10} | {6,-10}",
-    JobIDs[i], JobTitles[i], JobLocations[i], "PHP " + JobBudgets[i],
-    workerDisplay, JobStatuses[i], applicantCount);
+                                Console.WriteLine("{0,-8} | {1,-16} | {2,-12} | {3,-12} | {4,-20} | {5,-10} | {6,-10}", JobIDs[i], JobTitles[i], JobLocations[i], "PHP " + JobBudgets[i], workerDisplay, JobStatuses[i], applicantCount);
                                 count++;
                             }
                         }
@@ -626,7 +648,10 @@
                         Console.Write("\nEnter Job ID to view applicants (or / to return): ");
                         string selectedJobId = Console.ReadLine().Trim().ToUpper();
 
-                        if (selectedJobId == "/") break;
+                        if (selectedJobId == "/") 
+                        { 
+                            break; 
+                        }
 
                         if (string.IsNullOrWhiteSpace(selectedJobId))
                         {
@@ -665,8 +690,7 @@
                         Console.WriteLine("===============================================================================");
                         Console.WriteLine($" JOB: {JobIDs[jobIdx]} — {JobTitles[jobIdx]} | Status: {JobStatuses[jobIdx]}");
                         Console.WriteLine("===============================================================================");
-                        Console.WriteLine("{0,-5} | {1,-20} | {2,-15} | {3,-15} | {4,-15}",
-    "No.", "Applicant", "Rating", "Location", "Contact");
+                        Console.WriteLine("{0,-5} | {1,-20} | {2,-15} | {3,-15} | {4,-15}", "No.", "Applicant", "Rating", "Location", "Contact");
                         Console.WriteLine("===============================================================================");
                         Console.ResetColor();
 
@@ -674,9 +698,7 @@
                         foreach (string notif in LiveNotifications)
                         {
                             string[] parts = notif.Split('|');
-                            if (parts.Length >= 4 &&
-                                parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) &&
-                                parts[1] == "APPLIED")
+                            if (parts.Length >= 4 && parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) && parts[1] == "APPLIED")
                             {
                                 string[] payload = parts[3].Split(';');
                                 if (payload.Length >= 2 && payload[1] == selectedJobId &&
@@ -697,8 +719,7 @@
                                         }
                                     }
 
-                                    Console.WriteLine("{0,-5} | {1,-20} | {2,-15} | {3,-15} | {4,-15}",
-    appCount + 1, workerName, workerScore, workerLocation, workerContact);
+                                    Console.WriteLine("{0,-5} | {1,-20} | {2,-15} | {3,-15} | {4,-15}", appCount + 1, workerName, workerScore, workerLocation, workerContact);
                                     applicantMapping.Add(parts[3]);
                                     appCount++;
                                 }
@@ -720,7 +741,10 @@
                             Console.Write("\nEnter applicant number to evaluate (or / to return): ");
                             string input = Console.ReadLine().Trim();
 
-                            if (input == "/") { appIndex = -1; break; }
+                            if (input == "/") 
+                            { 
+                                appIndex = -1; break; 
+                            }
 
                             if (!int.TryParse(input, out appIndex))
                             {
@@ -748,7 +772,7 @@
                         Console.WriteLine($"Applicant: {selectedWorker}");
                         Console.WriteLine($"Rating:   {GetUserAverageRating(selectedWorker)}");
                         Console.WriteLine("-------------------------------------------------------------------------------");
-                        Console.WriteLine(" [1] Accept — move to ONGOING");
+                        Console.WriteLine(" [1] Accept applicant");
                         Console.WriteLine(" [2] Decline applicant");
 
                         int decision;
@@ -765,19 +789,17 @@
                         {
                             JobStatuses[jobIdx] = "ONGOING";
                             JobWorkers[jobIdx] = selectedWorker;
-                            AddNotification(selectedWorker, "APPROVED",
-                                $"Employer '{username}' accepted you for '{JobTitles[jobIdx]}' (ID: {JobIDs[jobIdx]}). You can start work now.");
+                            AddNotification(selectedWorker, "APPROVED", $"Employer '{username}' accepted you for '{JobTitles[jobIdx]}' (ID: {JobIDs[jobIdx]}). You can start work now.");
                             RemoveApplicationNotification(username, selectedWorker, selectedJobId);
                             AutoDeclineOtherApplicants(username, selectedJobId, JobTitles[jobIdx], selectedWorker);
                             SaveData();
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\n[SUCCESS] Contract finalized. Worker can now track their ongoing duties.");
+                            Console.WriteLine("\n[SUCCESS] Worker hired. Worker can now track their ongoing duties.");
                             Console.ResetColor();
                         }
                         else if (decision == 2)
                         {
-                            AddNotification(selectedWorker, "DECLINED",
-                                $"Your application for '{JobTitles[jobIdx]}' (ID: {JobIDs[jobIdx]}) was declined.");
+                            AddNotification(selectedWorker, "DECLINED", $"Your application for '{JobTitles[jobIdx]}' (ID: {JobIDs[jobIdx]}) was declined.");
                             RemoveApplicationNotification(username, selectedWorker, selectedJobId);
                             SaveData();
                             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -803,19 +825,16 @@
                     Console.WriteLine("===============================================================================");
                     Console.WriteLine("                        VERIFY COMPLETIONS");
                     Console.WriteLine("===============================================================================");
-                    Console.WriteLine("{0,-8} | {1,-20} | {2,-20} | {3,-12}",
-    "Job ID", "Title", "Worker", "Budget");
+                    Console.WriteLine("{0,-8} | {1,-20} | {2,-20} | {3,-12}", "Job ID", "Title", "Worker", "Budget");
                     Console.WriteLine("===============================================================================");
                     Console.ResetColor();
 
                     int pendingCount = 0;
                     for (int i = 0; i < JobIDs.Count; i++)
                     {
-                        if (JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase) &&
-                            JobStatuses[i] == "PENDING_VERIFICATION")
+                        if (JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase) && JobStatuses[i] == "PENDING_VERIFICATION")
                         {
-                            Console.WriteLine("{0,-8} | {1,-20} | {2,-20} | {3,-12}",
-    JobIDs[i], JobTitles[i], JobWorkers[i], "PHP " + JobBudgets[i]);
+                            Console.WriteLine("{0,-8} | {1,-20} | {2,-20} | {3,-12}", JobIDs[i], JobTitles[i], JobWorkers[i], "PHP " + JobBudgets[i]);
                             pendingCount++;
                         }
                     }
@@ -829,14 +848,15 @@
 
                     Console.Write("\nEnter Job ID to verify (or / to return): ");
                     string targetId = Console.ReadLine().Trim().ToUpper();
-                    if (targetId == "/") continue;
+                    if (targetId == "/") 
+                    { 
+                        continue; 
+                    }
 
                     int matchIndex = -1;
                     for (int i = 0; i < JobIDs.Count; i++)
                     {
-                        if (JobIDs[i] == targetId &&
-                            JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase) &&
-                            JobStatuses[i] == "PENDING_VERIFICATION")
+                        if (JobIDs[i] == targetId && JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase) && JobStatuses[i] == "PENDING_VERIFICATION")
                         {
                             matchIndex = i;
                             break;
@@ -853,9 +873,9 @@
                     }
 
                     Console.Clear();
-                    Console.WriteLine($"Job:    {JobIDs[matchIndex]} — {JobTitles[matchIndex]}");
+                    Console.WriteLine($"Job: {JobIDs[matchIndex]} — {JobTitles[matchIndex]}");
                     Console.WriteLine($"Worker: {JobWorkers[matchIndex]}");
-                    Console.WriteLine($"Pay:    PHP {JobBudgets[matchIndex]}");
+                    Console.WriteLine($"Pay: PHP {JobBudgets[matchIndex]}");
                     Console.WriteLine("-------------------------------------------------------------------------------");
                     Console.WriteLine(" [1] Approve & release payment");
                     Console.WriteLine(" [2] Reject & send back for revision");
@@ -864,7 +884,10 @@
                     while (true)
                     {
                         Console.Write("Enter action: ");
-                        if (int.TryParse(Console.ReadLine(), out verifyChoice)) break;
+                        if (int.TryParse(Console.ReadLine(), out verifyChoice)) 
+                        { 
+                            break;
+                        }
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("[ERROR] Invalid input. Numbers only.");
                         Console.ResetColor();
@@ -894,13 +917,12 @@
                         }
 
                         JobStatuses[matchIndex] = "COMPLETED";
-                        JobRatings[matchIndex] = new string('★', stars);
+                        JobRatings[matchIndex] = new string('*', stars);
 
                         string stackPayload = $"{JobIDs[matchIndex]}|{JobTitles[matchIndex]}|{JobEmployers[matchIndex]}|{JobWorkers[matchIndex]}|{JobBudgets[matchIndex]}|{JobRatings[matchIndex]}";
                         TransactionHistory.Push(stackPayload);
 
-                        AddNotification(JobWorkers[matchIndex], "FINISHED",
-                            $"Payment released! '{username}' approved your work on '{JobTitles[matchIndex]}'. Rating: {JobRatings[matchIndex]}");
+                        AddNotification(JobWorkers[matchIndex], "FINISHED", $"Payment released! '{username}' approved your work on '{JobTitles[matchIndex]}'. Rating: {JobRatings[matchIndex]}");
                         SaveData();
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -910,8 +932,7 @@
                     else if (verifyChoice == 2)
                     {
                         JobStatuses[matchIndex] = "ONGOING";
-                        AddNotification(JobWorkers[matchIndex], "DECLINED",
-                            $"[!] Revision requested by '{username}' for job '{JobTitles[matchIndex]}' (ID: {JobIDs[matchIndex]}).");
+                        AddNotification(JobWorkers[matchIndex], "DECLINED", $"[!] Revision requested by '{username}' for job '{JobTitles[matchIndex]}' (ID: {JobIDs[matchIndex]}).");
                         SaveData();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("\n[INFO] Job sent back to worker for revision.");
@@ -956,7 +977,9 @@
                 }
 
                 if (choice == 0)
-                    return;
+                {
+                    return; 
+                }
 
                 string filterLocation = "";
 
@@ -992,7 +1015,9 @@
                     }
 
                     if (filterLocation == "")
-                        continue;
+                    { 
+                        continue; 
+                    }
                 }
                 else
                 {
@@ -1008,8 +1033,7 @@
                 Console.WriteLine("===========================================================================================================================================");
                 Console.WriteLine("                                                     AVAILABLE JOBS");
                 Console.WriteLine("===========================================================================================================================================");
-                Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}",
-     "Job ID", "Title", "Location", "Budget", "Employer", "Emp. Location", "Contact No.", "Date Posted");
+                Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}", "Job ID", "Title", "Location", "Budget", "Employer", "Emp. Location", "Contact No.", "Date Posted");
                 Console.WriteLine("===========================================================================================================================================");
                 Console.ResetColor();
 
@@ -1018,12 +1042,9 @@
                 for (int i = 0; i < JobIDs.Count; i++)
                 {
                     bool available =
-                        JobStatuses[i] == "AVAILABLE" &&
-                        !JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase);
+                        JobStatuses[i] == "AVAILABLE" && !JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase);
 
-                    bool locationMatch =
-                        choice == 1 ||
-                        JobLocations[i].Equals(filterLocation, StringComparison.OrdinalIgnoreCase);
+                    bool locationMatch = choice == 1 || JobLocations[i].Equals(filterLocation, StringComparison.OrdinalIgnoreCase);
 
                     if (available && locationMatch)
                     {
@@ -1041,14 +1062,14 @@
                         }
 
                         Console.WriteLine("{0,-8} | {1,-16} | {2,-10} | {3,-10} | {4,-20} | {5,-15} | {6,-13} | {7,-18}",
-     JobIDs[i],
-     JobTitles[i],
-     JobLocations[i],
-     "PHP " + JobBudgets[i],
-     JobEmployers[i],
-     employerLocation,
-     employerContact,
-     JobDatePosted[i]);
+                     JobIDs[i],
+                     JobTitles[i],
+                     JobLocations[i],
+                     "PHP " + JobBudgets[i],
+                     JobEmployers[i],
+                     employerLocation,
+                     employerContact,
+                     JobDatePosted[i]);
                         count++;
                     }
                 }
@@ -1065,7 +1086,9 @@
                 string targetId = Console.ReadLine().Trim().ToUpper();
 
                 if (targetId == "/")
-                    continue;
+                { 
+                    continue; 
+                }
 
                 if (targetId == "")
                 {
@@ -1080,8 +1103,7 @@
 
                 for (int i = 0; i < JobIDs.Count; i++)
                 {
-                    if (JobIDs[i] == targetId &&
-                        JobStatuses[i] == "AVAILABLE")
+                    if (JobIDs[i] == targetId && JobStatuses[i] == "AVAILABLE")
                     {
                         matchIndex = i;
                         break;
@@ -1112,11 +1134,7 @@
                     }
                     else
                     {
-                        AddNotification(
-                            JobEmployers[matchIndex],
-                            "APPLIED",
-                            username + ";" + JobIDs[matchIndex]
-                        );
+                        AddNotification(JobEmployers[matchIndex], "APPLIED", username + ";" + JobIDs[matchIndex]);
                         SaveData();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("\n[SUCCESS] Application submitted! Waiting for Employer review.");
@@ -1132,6 +1150,28 @@
 
                 Pause();
             }
+        }
+        static string GetEmployerAverageRating(string employerName)
+        {
+            int totalStars = 0;
+            int jobCount = 0;
+
+            for (int i = 0; i < JobIDs.Count; i++)
+            {
+                if (JobEmployers[i].Equals(employerName, StringComparison.OrdinalIgnoreCase) && JobStatuses[i] == "COMPLETED")
+                {
+                    string stars = JobEmployerRatings[i];
+                    if (!string.IsNullOrEmpty(stars) && stars != "N/A")
+                    {
+                        totalStars += stars.Length;
+                        jobCount++;
+                    }
+                }
+            }
+
+            if (jobCount == 0) return "No performance reviews";
+            int average = (int)Math.Round((double)totalStars / jobCount);
+            return new string('*', average);
         }
         static string GetUserAverageRating(string workerName)
         {
@@ -1155,6 +1195,101 @@
             int average = (int)Math.Round((double)totalStars / jobCount);
             return new string('*', average);
         }
+        static void PromptUnratedEmployers(string username)
+        {
+            List<int> unratedJobs = new List<int>();
+
+            for (int i = 0; i < JobIDs.Count; i++)
+            {
+                if (JobWorkers[i].Equals(username, StringComparison.OrdinalIgnoreCase) &&
+                    JobStatuses[i] == "COMPLETED" &&
+                    JobEmployerRatings[i] == "N/A")
+                {
+                    unratedJobs.Add(i);
+                }
+            }
+
+            if (unratedJobs.Count == 0) 
+            {
+                return; 
+            }
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("-------------------------------------------------------------------------------");
+            Console.WriteLine(" You have " + unratedJobs.Count + " completed job(s) where you haven't rated the employer yet.");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+            Console.ResetColor();
+
+            foreach (int jobIdx in unratedJobs)
+            {
+                Console.WriteLine(" Job: " + JobTitles[jobIdx] + " (ID: " + JobIDs[jobIdx] + ") | Employer: " + JobEmployers[jobIdx]);
+            }
+
+            Console.Write("\nEnter Job ID to rate now (or / to skip): ");
+            string targetId = Console.ReadLine().Trim().ToUpper();
+
+            if (targetId == "/") 
+            { 
+                return; 
+            }
+
+            int selectedIdx = -1;
+            foreach (int jobIdx in unratedJobs)
+            {
+                if (JobIDs[jobIdx] == targetId)
+                {
+                    selectedIdx = jobIdx;
+                    break;
+                }
+            }
+
+            if (selectedIdx == -1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n[ERROR] Job ID not found or not eligible for rating.");
+                Console.ResetColor();
+                return;
+            }
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("===============================================================================");
+            Console.WriteLine("                     RATE YOUR EMPLOYER");
+            Console.WriteLine("===============================================================================");
+            Console.ResetColor();
+            Console.WriteLine("Job:      " + JobTitles[selectedIdx]);
+            Console.WriteLine("Employer: " + JobEmployers[selectedIdx]);
+            Console.WriteLine("-------------------------------------------------------------------------------");
+
+            int stars;
+            while (true)
+            {
+                Console.Write("Rate this employer (1-5 stars): ");
+                if (!int.TryParse(Console.ReadLine(), out stars))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("[ERROR] Numbers only.");
+                    Console.ResetColor();
+                    continue;
+                }
+                if (stars < 1 || stars > 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("[ERROR] Enter a number between 1 and 5.");
+                    Console.ResetColor();
+                    continue;
+                }
+                break;
+            }
+
+            JobEmployerRatings[selectedIdx] = new string('*', stars);
+            SaveData();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n[SUCCESS] Thank you for your feedback!");
+            Console.ResetColor();
+        }
 
         static void RemoveApplicationNotification(string employer, string worker, string jobId)
         {
@@ -1163,10 +1298,7 @@
             foreach (string n in LiveNotifications)
             {
                 string[] parts = n.Split('|');
-                if (parts.Length >= 4 &&
-                    parts[0].Equals(employer, StringComparison.OrdinalIgnoreCase) &&
-                    parts[1] == "APPLIED" &&
-                    parts[3] == targetPayload)
+                if (parts.Length >= 4 && parts[0].Equals(employer, StringComparison.OrdinalIgnoreCase) && parts[1] == "APPLIED" && parts[3] == targetPayload)
                 {
                     continue;
                 }
@@ -1174,7 +1306,10 @@
             }
 
             LiveNotifications.Clear();
-            foreach (string n in retainedNotifs) LiveNotifications.Enqueue(n);
+            foreach (string n in retainedNotifs) 
+            { 
+                LiveNotifications.Enqueue(n); 
+            }
         }
         static void AutoDeclineOtherApplicants(string employer, string jobId, string jobTitle, string acceptedWorker)
         {
@@ -1186,14 +1321,10 @@
                 string[] parts = n.Split('|');
                 bool isOtherApplicant = false;
 
-                if (parts.Length >= 4 &&
-                    parts[0].Equals(employer, StringComparison.OrdinalIgnoreCase) &&
-                    parts[1] == "APPLIED")
+                if (parts.Length >= 4 && parts[0].Equals(employer, StringComparison.OrdinalIgnoreCase) && parts[1] == "APPLIED")
                 {
                     string[] payload = parts[3].Split(';');
-                    if (payload.Length >= 2 &&
-                        payload[1] == jobId &&
-                        !payload[0].Equals(acceptedWorker, StringComparison.OrdinalIgnoreCase))
+                    if (payload.Length >= 2 && payload[1] == jobId && !payload[0].Equals(acceptedWorker, StringComparison.OrdinalIgnoreCase))
                     {
                         isOtherApplicant = true;
                         workersToNotify.Add(payload[0]);
@@ -1208,7 +1339,10 @@
             }
 
             LiveNotifications.Clear();
-            foreach (string n in retainedNotifs) LiveNotifications.Enqueue(n);
+            foreach (string n in retainedNotifs)
+            { 
+                LiveNotifications.Enqueue(n); 
+            }
 
             foreach (string worker in workersToNotify)
             {
@@ -1222,16 +1356,14 @@
             Console.WriteLine("===============================================================================");
             Console.WriteLine("                      MY ONGOING WORK");
             Console.WriteLine("===============================================================================");
-            Console.WriteLine("{0,-8} | {1,-20} | {2,-12} | {3,-20}",
-    "Job ID", "Title", "Earnings", "Client");
+            Console.WriteLine("{0,-8} | {1,-20} | {2,-12} | {3,-20}", "Job ID", "Title", "Earnings", "Client");
             Console.WriteLine("===============================================================================");
 
             for (int i = 0; i < JobIDs.Count; i++)
             {
                 if (JobWorkers[i].Equals(username, StringComparison.OrdinalIgnoreCase) && JobStatuses[i] == "ONGOING")
                 {
-                    Console.WriteLine("{0,-8} | {1,-20} | {2,-12} | {3,-20}",
-    JobIDs[i], JobTitles[i], "PHP " + JobBudgets[i], JobEmployers[i]);
+                    Console.WriteLine("{0,-8} | {1,-20} | {2,-12} | {3,-20}", JobIDs[i], JobTitles[i], "PHP " + JobBudgets[i], JobEmployers[i]);
                     ongoingCount++;
                 }
             }
@@ -1287,7 +1419,10 @@
                     if (parts[0].Equals(username, StringComparison.OrdinalIgnoreCase))
                     {
                         personalNotifications.Add(notif);
-                        if (parts[2] == "UNREAD") unreadCount++;
+                        if (parts[2] == "UNREAD")
+                        { 
+                            unreadCount++;
+                        }
                     }
                 }
 
@@ -1315,7 +1450,10 @@
                     Thread.Sleep(1000);
                     continue;
                 }
-                if (choice == 0) return;
+                if (choice == 0) 
+                { 
+                    return; 
+                }
 
                 if (choice == 4)
                 {
@@ -1333,7 +1471,10 @@
                     }
 
                     LiveNotifications.Clear();
-                    foreach (string n in retainedNotifs) LiveNotifications.Enqueue(n);
+                    foreach (string n in retainedNotifs) 
+                    { 
+                        LiveNotifications.Enqueue(n); 
+                    }
 
                     SaveData();
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -1344,9 +1485,18 @@
                 }
 
                 string targetedCategoryCode = "";
-                if (choice == 1) { targetedCategoryCode = "APPROVED"; }
-                else if (choice == 2) { targetedCategoryCode = "FINISHED"; }
-                else if (choice == 3) { targetedCategoryCode = "DECLINED"; }
+                if (choice == 1) 
+                { 
+                    targetedCategoryCode = "APPROVED"; 
+                }
+                else if (choice == 2) 
+                { 
+                    targetedCategoryCode = "FINISHED"; 
+                }
+                else if (choice == 3)
+                { 
+                    targetedCategoryCode = "DECLINED"; 
+                }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -1391,6 +1541,12 @@
 
                 Console.WriteLine("-------------------------------------------------------------------------------");
                 Console.ResetColor();
+
+                if (targetedCategoryCode == "FINISHED")
+                {
+                    PromptUnratedEmployers(username);
+                }
+
                 Pause();
             }
         }
@@ -1421,8 +1577,7 @@
                     if (isEmployer || isWorker)
                     {
                         string role = isEmployer ? "Employer" : "Worker";
-                        Console.WriteLine("{0,-8} | {1,-16} | {2,-20} | {3,-20} | {4,-10} | {5,-8} | {6,-10}",
-     p[0], p[1], p[2], p[3], "PHP " + p[4], p[5], role);
+                        Console.WriteLine("{0,-8} | {1,-16} | {2,-20} | {3,-20} | {4,-10} | {5,-8} | {6,-10}", p[0], p[1], p[2], p[3], "PHP " + p[4], p[5], role);
                         displayCount++;
                     }
                 }
@@ -1445,9 +1600,9 @@
             List<string> jobLines = new List<string>();
             for (int i = 0; i < JobIDs.Count; i++)
                 jobLines.Add(JobIDs[i] + "|" + JobTitles[i] + "|" + JobLocations[i] +
-             "|" + JobBudgets[i] + "|" + JobEmployers[i] +
-             "|" + JobWorkers[i] + "|" + JobStatuses[i] +
-             "|" + JobRatings[i] + "|" + JobDatePosted[i]);
+      "|" + JobBudgets[i] + "|" + JobEmployers[i] +
+      "|" + JobWorkers[i] + "|" + JobStatuses[i] +
+      "|" + JobRatings[i] + "|" + JobDatePosted[i] + "|" + JobEmployerRatings[i]);
             File.WriteAllLines("jobs_universal.txt", jobLines);
 
             File.WriteAllLines("notifications_universal.txt", LiveNotifications.ToArray());
@@ -1467,7 +1622,10 @@
                 UserConNum.Clear();
                 foreach (string line in File.ReadAllLines("users_universal.txt"))
                 {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    if (string.IsNullOrWhiteSpace(line)) 
+                    { 
+                        continue; 
+                    }
                     string cleanLine = line.Replace(',', '|');
                     string[] p = cleanLine.Split('|');
                     if (p.Length == 4)
@@ -1489,10 +1647,11 @@
                 JobStatuses.Clear();
                 JobRatings.Clear();
                 JobLocations.Clear();
+                JobEmployerRatings.Clear();
                 foreach (string line in File.ReadAllLines("jobs_universal.txt"))
                 {
                     string[] p = line.Split('|');
-                    if (p.Length == 9)
+                    if (p.Length == 9 || p.Length == 10)
                     {
                         JobIDs.Add(p[0]);
                         JobTitles.Add(p[1]);
@@ -1503,6 +1662,15 @@
                         JobStatuses.Add(p[6]);
                         JobRatings.Add(p[7]);
                         JobDatePosted.Add(p[8]);
+
+                        if (p.Length == 10)
+                        {
+                            JobEmployerRatings.Add(p[9]);
+                        }
+                        else
+                        {
+                            JobEmployerRatings.Add("N/A");
+                        }
                     }
                 }
             }
