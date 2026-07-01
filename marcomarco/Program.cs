@@ -672,8 +672,7 @@
                         int jobIdx = -1;
                         for (int i = 0; i < JobIDs.Count; i++)
                         {
-                            if (JobIDs[i] == selectedJobId &&
-                                JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase))
+                            if (JobIDs[i] == selectedJobId && JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase))
                             {
                                 jobIdx = i;
                                 break;
@@ -707,20 +706,19 @@
                             if (parts.Length >= 4 && parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) && parts[1] == "APPLIED")
                             {
                                 string[] payload = parts[3].Split(';');
-                                if (payload.Length >= 2 && payload[1] == selectedJobId &&
-                                    JobStatuses[jobIdx] == "AVAILABLE")
+                                if (payload.Length >= 2 && payload[1] == selectedJobId && JobStatuses[jobIdx] == "AVAILABLE")
                                 {
                                     string workerName = payload[0];
                                     string workerScore = GetUserAverageRating(workerName);
                                     string workerLocation = "";
                                     string workerContact = "";
 
-                                    for (int k = 0; k < UserNames.Count; k++)
+                                    for (int i = 0; i < UserNames.Count; i++)
                                     {
-                                        if (UserNames[k].Equals(workerName, StringComparison.OrdinalIgnoreCase))
+                                        if (UserNames[i].Equals(workerName, StringComparison.OrdinalIgnoreCase))
                                         {
-                                            workerLocation = UserLoc[k];
-                                            workerContact = UserConNum[k];
+                                            workerLocation = UserLoc[i];
+                                            workerContact = UserConNum[i];
                                             break;
                                         }
                                     }
@@ -748,7 +746,8 @@
 
                             if (input == "/") 
                             { 
-                                appIndex = -1; break; 
+                                appIndex = -1; 
+                                break; 
                             }
 
                             if (!int.TryParse(input, out appIndex))
@@ -759,7 +758,10 @@
                                 continue;
                             }
 
-                            if (appIndex >= 1 && appIndex <= applicantMapping.Count) break;
+                            if (appIndex >= 1 && appIndex <= applicantMapping.Count) 
+                            {
+                              break;
+                            }
 
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("[ERROR] Number out of range.");
