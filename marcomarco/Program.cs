@@ -328,7 +328,10 @@
                             bool contactExists = false;
                             for (int i = 0; i < UserConNum.Count; i++)
                             {
-                                if (UserConNum[i] == c) { contactExists = true; break; }
+                                if (UserConNum[i] == c) 
+                                { 
+                                    contactExists = true; break; 
+                                }
                             }
 
                             if (contactExists)
@@ -994,6 +997,7 @@
                 {
                     filterLocation = "";
                 }
+
                 else if (choice == 2)
                 {
                     while (true)
@@ -1048,10 +1052,21 @@
 
                 for (int i = 0; i < JobIDs.Count; i++)
                 {
-                    bool available =
-                        JobStatuses[i] == "AVAILABLE" && !JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase);
+                    bool available = false;
+                    if (JobStatuses[i] == "AVAILABLE" && !JobEmployers[i].Equals(username, StringComparison.OrdinalIgnoreCase))
+                    {
+                        available = true;
+                    }
 
-                    bool locationMatch = choice == 1 || JobLocations[i].Equals(filterLocation, StringComparison.OrdinalIgnoreCase);
+                    bool locationMatch = false;
+                    if (choice == 1)
+                    {
+                        locationMatch = true;
+                    }
+                    else if (JobLocations[i].Equals(filterLocation, StringComparison.OrdinalIgnoreCase))
+                    {
+                        locationMatch = true;
+                    }
 
                     if (available && locationMatch)
                     {
@@ -1177,7 +1192,10 @@
                 }
             }
 
-            if (jobCount == 0) return "No rating";
+            if (jobCount == 0) 
+            { 
+                return "No rating"; 
+            }
             int average = (int)Math.Round((double)totalStars / jobCount);
             return new string('*', average);
         }
@@ -1199,7 +1217,10 @@
                 }
             }
 
-            if (jobCount == 0) return "No rating";
+            if (jobCount == 0) 
+            { 
+                return "No rating"; 
+            }
             int average = (int)Math.Round((double)totalStars / jobCount);
             return new string('*', average);
         }
@@ -1209,9 +1230,7 @@
 
             for (int i = 0; i < JobIDs.Count; i++)
             {
-                if (JobWorkers[i].Equals(username, StringComparison.OrdinalIgnoreCase) &&
-                    JobStatuses[i] == "COMPLETED" &&
-                    JobEmployerRatings[i] == "N/A")
+                if (JobWorkers[i].Equals(username, StringComparison.OrdinalIgnoreCase) && JobStatuses[i] == "COMPLETED" && JobEmployerRatings[i] == "N/A")
                 {
                     unratedJobs.Add(i);
                 }
