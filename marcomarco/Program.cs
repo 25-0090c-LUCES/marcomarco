@@ -331,7 +331,7 @@
                                 if (UserConNum[i] == c) 
                                 { 
                                     contactExists = true; break; 
-                                }
+                                 }
                             }
 
                             if (contactExists)
@@ -653,7 +653,7 @@
                             break;
                         }
 
-                        Console.WriteLine("=============================================================================================================================");
+                        Console.WriteLine("======================================================================================================================================");
                         Console.Write("\nEnter Job ID to view applicants (or / to return): ");
                         string selectedJobId = Console.ReadLine().Trim().ToUpper();
 
@@ -778,7 +778,7 @@
                         string selectedWorker = selectedPayload[0];
 
                         Console.Clear();
-                        Console.WriteLine($"Job:      {JobIDs[jobIdx]} — {JobTitles[jobIdx]}");
+                        Console.WriteLine($"Job: {JobIDs[jobIdx]} — {JobTitles[jobIdx]}");
                         Console.WriteLine($"Applicant: {selectedWorker}");
                         Console.WriteLine($"Rating:   {GetUserAverageRating(selectedWorker)}");
                         Console.WriteLine("-------------------------------------------------------------------------------");
@@ -788,7 +788,7 @@
                         int decision;
                         while (true)
                         {
-                            Console.Write("Enter action: ");
+                            Console.Write("\nEnter action: ");
                             if (int.TryParse(Console.ReadLine(), out decision)) break;
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("[ERROR] Numbers only.");
@@ -1494,8 +1494,7 @@
                         string[] parts = n.Split('|');
 
                         
-                        if (!parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) ||
-                            parts[1] == "APPLIED")
+                        if (!parts[0].Equals(username, StringComparison.OrdinalIgnoreCase) || parts[1] == "APPLIED")
                         {
                             retainedNotifs.Add(n);
                         }
@@ -1562,7 +1561,10 @@
                 }
 
                 LiveNotifications.Clear();
-                foreach (string n in updatedNotifs) LiveNotifications.Enqueue(n);
+                foreach (string n in updatedNotifs) 
+                { 
+                    LiveNotifications.Enqueue(n); 
+                }
                 SaveData();
 
                 if (displayCount == 0)
@@ -1590,24 +1592,41 @@
         {
             int displayCount = 0;
             Console.Clear();
-            Console.WriteLine("=============================================================================================================================");
+            Console.WriteLine("======================================================================================================================================");
             Console.WriteLine("                                             MY HISTORY LEDGER");
-            Console.WriteLine("=============================================================================================================================");
+            Console.WriteLine("======================================================================================================================================");
             Console.WriteLine("{0,-10} | {1,-25} | {2,-25} | {3,-25} | {4,-12} | {5,-10} | {6,-12}",
     "Job ID", "Title", "Employer", "Worker", "Paid", "Rating", "Your Role");
-            Console.WriteLine("=============================================================================================================================");
+            Console.WriteLine("======================================================================================================================================");
 
             foreach (string log in TransactionHistory)
             {
                 string[] p = log.Split('|');
                 if (p.Length >= 6)
                 {
-                    bool isEmployer = p[2].Equals(username, StringComparison.OrdinalIgnoreCase);
-                    bool isWorker = p[3].Equals(username, StringComparison.OrdinalIgnoreCase);
+                    bool isEmployer = false;
+                    if (p[2].Equals(username, StringComparison.OrdinalIgnoreCase))
+                    {
+                        isEmployer = true;
+                    }
+
+                    bool isWorker = false;
+                    if (p[3].Equals(username, StringComparison.OrdinalIgnoreCase))
+                    {
+                        isWorker = true;
+                    }
 
                     if (isEmployer || isWorker)
                     {
-                        string role = isEmployer ? "Employer" : "Worker";
+                        string role;
+                        if (isEmployer)
+                        {
+                            role = "Employer";
+                        }
+                        else
+                        {
+                            role = "Worker";
+                        }
                         Console.WriteLine("{0,-10} | {1,-25} | {2,-25} | {3,-25} | {4,-12} | {5,-10} | {6,-12}", p[0], p[1], p[2], p[3], "PHP " + p[4], p[5], role);
                         displayCount++;
                     }
@@ -1625,17 +1644,21 @@
         {
             List<string> userLines = new List<string>();
             for (int i = 0; i < UserNames.Count; i++)
+            {
                 userLines.Add($"{UserNames[i]}|{UserPasswords[i]}|{UserLoc[i]}|{UserConNum[i]}");
+            }
             File.WriteAllLines("users_universal.txt", userLines);
 
             List<string> jobLines = new List<string>();
             for (int i = 0; i < JobIDs.Count; i++)
+            {
                 jobLines.Add(JobIDs[i] + "|" + JobTitles[i] + "|" + JobLocations[i] +
       "|" + JobBudgets[i] + "|" + JobEmployers[i] +
       "|" + JobWorkers[i] + "|" + JobStatuses[i] +
       "|" + JobRatings[i] + "|" + JobDatePosted[i] + "|" + JobEmployerRatings[i]);
-            File.WriteAllLines("jobs_universal.txt", jobLines);
+            }
 
+            File.WriteAllLines("jobs_universal.txt", jobLines);
             File.WriteAllLines("notifications_universal.txt", LiveNotifications.ToArray());
             File.WriteAllLines("history_universal.txt", TransactionHistory.ToArray());
         }
@@ -1657,8 +1680,8 @@
                     { 
                         continue; 
                     }
-                    string cleanLine = line.Replace(',', '|');
-                    string[] p = cleanLine.Split('|');
+                    
+                    string[] p = line.Split('|');
                     if (p.Length == 4)
                     {
                         UserNames.Add(p[0]);
@@ -1682,7 +1705,7 @@
                 foreach (string line in File.ReadAllLines("jobs_universal.txt"))
                 {
                     string[] p = line.Split('|');
-                    if (p.Length == 9 || p.Length == 10)
+                    if (p.Length == 10)
                     {
                         JobIDs.Add(p[0]);
                         JobTitles.Add(p[1]);
@@ -1693,15 +1716,8 @@
                         JobStatuses.Add(p[6]);
                         JobRatings.Add(p[7]);
                         JobDatePosted.Add(p[8]);
-
-                        if (p.Length == 10)
-                        {
-                            JobEmployerRatings.Add(p[9]);
-                        }
-                        else
-                        {
-                            JobEmployerRatings.Add("N/A");
-                        }
+                        JobEmployerRatings.Add(p[9]);
+          
                     }
                 }
             }
@@ -1709,7 +1725,10 @@
             {
                 LiveNotifications.Clear();
                 foreach (string line in File.ReadAllLines("notifications_universal.txt"))
-                    if (!string.IsNullOrWhiteSpace(line)) LiveNotifications.Enqueue(line);
+                    if (!string.IsNullOrWhiteSpace(line)) 
+                    { 
+                        LiveNotifications.Enqueue(line); 
+                    }
             }
             if (File.Exists("history_universal.txt"))
             {
@@ -1718,7 +1737,9 @@
                 for (int i = lines.Length - 1; i >= 0; i--)
                 {
                     if (!string.IsNullOrWhiteSpace(lines[i]))
-                        TransactionHistory.Push(lines[i]);
+                    {
+                        TransactionHistory.Push(lines[i]); 
+                    }
                 }
             }
         }
